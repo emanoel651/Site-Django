@@ -1,28 +1,48 @@
 {% extends 'base.html' %}
 
-{% block title %}VideoGenius - Crie Vídeos Incríveis{% endblock %}
+{% block title %}VideoGenius - Gerador de Vídeos com IA{% endblock %}
 
 {% block content %}
-<div class="p-5 mb-4 bg-light rounded-3 text-center">
-    <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Transforme seus Vídeos com Legendas e Músicas em Segundos</h1>
-        <p class="fs-4">Aumente o engajamento no TikTok e Instagram. Nossa IA gera legendas automáticas e adiciona a trilha sonora perfeita para seus vídeos virais.</p>
-        <a class="btn btn-primary btn-lg" href="#">Comece Agora - É Grátis!</a>
+
+<div class="hero-section">
+    <div class="container">
+        <h1>Crie Vídeos Virais para TikTok com IA</h1>
+        <p class="lead">
+            Gere legendas automáticas, adicione músicas de fundo e transforme seu conteúdo com o poder da inteligência artificial. Simples, rápido e feito para engajar.
+        </p>
+        <a href="#" class="btn btn-cta">Comece a Criar de Graça</a>
+
+        <div class="video-placeholder mx-auto">
+            <span>[Seu Vídeo de Exemplo Aqui]</span>
+        </div>
     </div>
 </div>
 
-<div class="row align-items-md-stretch">
-    <div class="col-md-6">
-        <div class="h-100 p-5 text-bg-dark rounded-3">
-            <h2>Legendas Automáticas</h2>
-            <p>Nunca mais perca tempo digitando. Nossa tecnologia de reconhecimento de voz cria legendas precisas e estilizadas para prender a atenção do seu público.</p>
+<div class="container py-5">
+    <h2 class="section-title">Uma Ferramenta Completa para Criadores</h2>
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="feature-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-badge-cc-fill text-white mb-3" viewBox="0 0 16 16"><path d="M... (código do ícone)"/></svg>
+                <h3>Legendas Inteligentes</h3>
+                <p>Nossa IA transcreve seu áudio com alta precisão e permite customizar o estilo das legendas para combinar com sua marca.</p>
+            </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="h-100 p-5 bg-light border rounded-3">
-            <h2>Músicas de Fundo</h2>
-            <p>Otimize seu tempo. Escolha em nossa biblioteca de músicas ou deixe nossa IA sugerir a trilha sonora que mais combina com o clima do seu vídeo.</p>
+        <div class="col-lg-4">
+            <div class="feature-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-music-note-beamed text-white mb-3" viewBox="0 0 16 16"><path d="M... (código do ícone)"/></svg>
+                <h3>Músicas em Alta</h3>
+                <p>Acesse uma biblioteca de músicas livres de direitos autorais ou deixe que nossa IA sugira a trilha sonora perfeita para seu vídeo.</p>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="feature-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-aspect-ratio-fill text-white mb-3" viewBox="0 0 16 16"><path d="M... (código do ícone)"/></svg>
+                <h3>Formatos de Redes Sociais</h3>
+                <p>Exporte seu vídeo finalizado no formato ideal para TikTok, Instagram Reels, YouTube Shorts e outras plataformas.</p>
+            </div>
         </div>
     </div>
 </div>
-{% endblock %}  
+
+{% endblock %}
