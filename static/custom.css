@@ -126,3 +126,59 @@ body {
     margin-top: 4rem;
     color: var(--cor-texto-claro);
 }
+
+/* static/css/custom.css (Adicionar no final) */
+
+/* --- Estilos da Janela de Chat --- */
+.chat-window {
+    background-color: #112240; /* Um azul um pouco mais claro que o fundo */
+    border: 1px solid #1d2d44;
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.chat-messages-area {
+    height: 60vh; /* Altura da área de mensagens */
+    overflow-y: auto; /* Adiciona barra de rolagem se necessário */
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    padding: 0.75rem 1rem;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+    max-width: 80%;
+}
+
+.bot-message {
+    background-color: #1d2d44;
+    color: var(--cor-texto-claro);
+    align-self: flex-start; /* Mensagens do bot na esquerda */
+}
+
+.user-message {
+    background-color: var(--cor-azul-claro);
+    color: var(--cor-azul-escuro);
+    align-self: flex-end; /* Mensagens do usuário na direita */
+}
+
+.chat-input-area .form-control {
+    background-color: #1d2d44;
+    border-color: #30415d;
+    color: var(--cor-branco);
+}
+
+.chat-input-area .form-control:focus {
+    background-color: #1d2d44;
+    border-color: var(--cor-azul-claro);
+    color: var(--cor-branco);
+    box-shadow: 0 0 0 0.25rem rgba(100, 255, 218, 0.25);
+}
+
+.chat-input-area .btn-primary {
+    background-color: var(--cor-azul-claro);
+    border-color: var(--cor-azul-claro);
+    color: var(--cor-azul-escuro);
+    font-weight: bold;
+}

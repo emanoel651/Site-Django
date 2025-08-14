@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}VideoGenius - Estúdio de Criação{% endblock %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="chat-window">
+                <div id="chat-messages" class="chat-messages-area mb-3">
+                    <div class="message bot-message">
+                        <p>Olá! 👋 Sou sua assistente de IA. Descreva o vídeo que você quer criar. Por exemplo: "um vídeo motivacional sobre esportes com uma música épica".</p>
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <form id="chat-form">
+                        {% csrf_token %}  <div class="input-group">
+                            <input type="text" id="user-input" class="form-control" placeholder="Descreva seu vídeo aqui..." autocomplete="off">
+                            <button class="btn btn-primary" type="submit">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const chatForm = document.getElementById('chat-form');
+    const userInput = document.getElementById('user-input');
+    const chatMessages = document.getElementById('chat-messages');
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Função para adicionar uma MENSAGEM DE TEXTO à tela
+    function addTextMessage(message, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
+        
+        const p = document.createElement('p');
+        p.textContent = message;
+        messageDiv.appendChild(p);
+        
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // --- NOVA FUNÇÃO PARA ADICIONAR UM BOTÃO DE DOWNLOAD ---
+    function addDownloadButton(message, videoUrl) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', 'bot-message');
+        
+        // Texto que vem antes do botão
+        const p = document.createElement('p');
+        p.textContent = message;
+        messageDiv.appendChild(p);
+
+        // Cria o botão de download (que é um link estilizado)
+        const downloadLink = document.createElement('a');
+        downloadLink.href = videoUrl;
+        downloadLink.textContent = 'Baixar Vídeo 🎬';
+        downloadLink.classList.add('btn', 'btn-cta', 'mt-2'); // Reutiliza o estilo do nosso botão principal
+        
+        // O atributo 'download' é a mágica que força o download
+        downloadLink.setAttribute('download', 'video_gerado.mp4');
+        
+        messageDiv.appendChild(downloadLink);
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    chatForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const userMessage = userInput.value.trim();
+        if (userMessage === '') {
+            return;
+        }
+
+        addTextMessage(userMessage, 'user');
+        userInput.value = '';
+
+        // Mostra uma mensagem de "Processando..." para o usuário
+        addTextMessage('Estou criando seu vídeo, aguarde um momento...', 'bot');
+
+        fetch("{% url 'process_chat_message' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify({ 'message': userMessage })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Se a resposta contiver um video_url, cria o botão de download
+            if (data.video_url) {
+                addDownloadButton('Seu vídeo foi criado com sucesso!', data.video_url);
+            } 
+            // Senão, apenas mostra a resposta de texto
+            else if (data.response) {
+                addTextMessage(data.response, 'bot');
+            }
+            else if (data.error) {
+                addTextMessage('Ocorreu um erro: ' + data.error, 'bot');
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            addTextMessage('Não foi possível conectar ao servidor.', 'bot');
+        });
+    });
+</script>
+
+{% endblock %}
